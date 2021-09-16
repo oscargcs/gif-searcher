@@ -27,7 +27,6 @@ const useHandleFetch = () => {
         }
       })
       .then((response) => {
-        console.log("response", response)
         setIsLoading(false)
         if (typeof response !== "undefined") {
           const gifAuxArray = []
