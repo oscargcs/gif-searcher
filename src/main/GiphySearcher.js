@@ -9,7 +9,7 @@ import GifDisplayer from "../GiphyDisplayer/GifDisplayer"
 import useHandleFetch from "../hooks/useHandleFetch"
 
 const GiphySearcher = () => {
-  const key = "dc6zaTOxFJmzC"
+  const apiKey = "dc6zaTOxFJmzC"
   const limit = 4
   var activePage = 1
   const [enteredFilter, setEnteredFilter] = useState("")
@@ -26,7 +26,7 @@ const GiphySearcher = () => {
       ) {
         setStatePage(1)
         activePage = 1
-        activePage = handleFetch(enteredFilter, activePage, key, limit)
+        activePage = handleFetch(enteredFilter, activePage, apiKey, limit)
       }
     }, 300)
     return () => {
@@ -37,7 +37,7 @@ const GiphySearcher = () => {
   const handlePageChange = (pageNumber) => {
     setStatePage(pageNumber.selected + 1)
     activePage = pageNumber.selected + 1
-    activePage = handleFetch(enteredFilter, activePage, key, limit)
+    activePage = handleFetch(enteredFilter, activePage, apiKey, limit)
   }
 
   return (
@@ -59,8 +59,8 @@ const GiphySearcher = () => {
       <div>
         <ReactPaginate
           marginPagesDisplayed={2}
-          pageCount={totalCount}
-          pageRangeDisplayed={limit}
+          pageCount={Math.ceil(totalCount / limit)}
+          pageRangeDisplayed={5}
           onPageChange={handlePageChange}
           containerClassName={"container"}
           forcePage={statePage - 1}

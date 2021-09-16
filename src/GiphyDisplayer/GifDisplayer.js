@@ -7,17 +7,15 @@ const GifDisplayer = (props) => {
   return (
     <div className="row">
       {props.isLoading && <LoadingIndicator />}
-      {props.foundGifs ? (
-        props.gifArray.map((item) => {
-          return (
-            <div key={item.id} className="column">
-              <img src={item.url} alt="Searched gifs" />
-            </div>
-          )
-        })
-      ) : (
-        <h2>No gifs found according to your search</h2>
-      )}
+      {props.foundGifs
+        ? props.gifArray.map((item) => {
+            return (
+              <div key={item.id} className="column">
+                <img src={item.url} alt="Searched gifs" />
+              </div>
+            )
+          })
+        : !props.isLoading && <h2>No gifs found according to your search</h2>}
     </div>
   )
 }
