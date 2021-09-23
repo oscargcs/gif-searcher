@@ -10,14 +10,30 @@ configure({ adapter: new Adapter() })
 let wrapper
 
 describe("<GifDisplayer/>", () => {
-  it("should render 1 LoadingIndicator if isLoading=true", () => {
+  it("should render 1 LoadingIndicator if isLoading=TRUE", () => {
     wrapper = shallow(<GifDisplayer isLoading={true} />)
     expect(wrapper.find(LoadingIndicator)).toHaveLength(1)
   })
 })
 
 describe("<GifDisplayer/>", () => {
-  it("should render SHOW A MESSAGE found if foundGifs=false", () => {
+  it("should NOT render h2 if isLoading=TRUE", () => {
+    wrapper = shallow(<GifDisplayer isLoading={true} />)
+    expect(wrapper.find(LoadingIndicator)).toHaveLength(1)
+    expect(wrapper.find("h2").exists()).toBeFalsy()
+  })
+})
+
+describe("<GifDisplayer/>", () => {
+  it("should NOT render images if isLoading=TRUE", () => {
+    wrapper = shallow(<GifDisplayer isLoading={true} />)
+    expect(wrapper.find(LoadingIndicator)).toHaveLength(1)
+    expect(wrapper.find("img").exists()).toBeFalsy()
+  })
+})
+
+describe("<GifDisplayer/>", () => {
+  it("should render a message if foundGifs=FALSE", () => {
     wrapper = shallow(<GifDisplayer foundGifs={false} />)
     expect(wrapper.find("h2").text()).toEqual(
       "No gifs found according to your search"
@@ -26,7 +42,14 @@ describe("<GifDisplayer/>", () => {
 })
 
 describe("<GifDisplayer/>", () => {
-  it("should render ALL images in the gifArray if foundGifs=true", () => {
+  it("should NOT render images if foundGifs=FALSE", () => {
+    wrapper = shallow(<GifDisplayer foundGifs={false} />)
+    expect(wrapper.find("img").exists()).toBeFalsy()
+  })
+})
+
+describe("<GifDisplayer/>", () => {
+  it("should render ALL images in the gifArray if foundGifs=TRUE", () => {
     const gifArrayExample = [
       { id: 0, url: "https://giphy.com/gifs/PhpAoE88BME6s" },
       { id: 1, url: "https://giphy.com/gifs/th-K8w1osY0O1Qpa" },
